@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Сайт в разработке</title>
+  <meta name="description" content="Сайт в разработке. Совсем скоро мы запустимся." />
+  <link rel="preload" href="logo.png" as="image" />
+  <link rel="icon" href="logo.png" type="image/png" />
+  <style>
+    :root {
+      --bg: #000000;
+      --fg: #ffffff;
+      --muted: rgba(255,255,255,.6);
+      --accent: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+      display: grid;
+      place-items: center;
+      line-height: 1.5;
+      overflow: hidden;
+    }
+    /* subtle noise */
+    body::before {
+      content: "";
+      position: fixed; inset: 0;
+      pointer-events: none;
+      background-image: radial-gradient(transparent 0, rgba(255,255,255,.04) 100%);
+      mix-blend-mode: soft-light;
+      opacity: .3;
+    }
+    .wrap {
+      text-align: center;
+      padding: 6vh 4vw;
+      width: min(960px, 92vw);
+      display: grid;
+      gap: 28px;
+      justify-items: center;
+      position: relative;
+    }
+    .logo {
+      width: min(420px, 70vw);
+      height: auto;
+      filter: brightness(0) invert(1) contrast(1.05);
+      image-rendering: -webkit-optimize-contrast;
+      animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    h1 {
+      margin: 0;
+      font-weight: 700;
+      font-size: clamp(20px, 4.2vw, 34px);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: .6em;
+      padding: .6em 1em;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      backdrop-filter: blur(6px);
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .progress {
+      width: min(520px, 86vw);
+      height: 6px;
+      background: rgba(255,255,255,.08);
+      border-radius: 999px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 0 0 1px rgba(255,255,255,.06) inset;
+    }
+    .bar {
+      position: absolute; inset: 0;
+      transform: translateX(-100%);
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      animation: load 2.2s linear infinite;
+    }
+    @keyframes load {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    .footer {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .links { display: flex; gap: 18px; flex-wrap: wrap; justify-content: center; }
+    .links a {
+      color: var(--fg); text-decoration: none; opacity: .85;
+      border-bottom: 1px dashed rgba(255,255,255,.25);
+    }
+    .links a:hover { opacity: 1; border-bottom-style: solid; }
+
+    /* scanline sheen */
+    .sheen {
+      position: absolute; inset: 0;
+      background: linear-gradient( to bottom,
+        rgba(255,255,255,.08) 0%,
+        rgba(255,255,255,0) 12%,
+        rgba(255,255,255,0) 88%,
+        rgba(255,255,255,.08) 100%
+      );
+      pointer-events: none;
+      mask-image: radial-gradient(80% 80% at 50% 50%, #000 60%, transparent 100%);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .logo { animation: none; }
+      .bar { animation: none; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap" role="main" aria-label="Under construction">
+    <img src="logo.png" alt="Логотип" class="logo" />
+    <div class="pill" aria-live="polite">🚧 Сайт в разработке • Under construction</div>
+    <h1>Мы скоро запустимся</h1>
+    <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="Прогресс запуска">
+      <div class="bar"></div>
+    </div>
+    <div class="links">
+      <!-- Укажите нужные контакты/ссылки или удалите блок -->
+      <a href="mailto:info@example.com">info@example.com</a>
+      <a href="https://instagram.com/" target="_blank" rel="noreferrer noopener">Instagram</a>
+      <a href="https://t.me/" target="_blank" rel="noreferrer noopener">Telegram</a>
+    </div>
+    <div class="footer">© <span id="y"></span> Владелец сайта. Все права защищены.</div>
+    <div class="sheen" aria-hidden="true"></div>
+  </main>
+  <script>
+    // Текущий год в подвале
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
